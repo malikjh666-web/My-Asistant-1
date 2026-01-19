@@ -1,0 +1,5 @@
+{
+  "name": "MCQ Examiner Pro",
+  "description": "An intelligent MCQ examiner that parses your questions, presents them as an exam, and provides detailed results with scores and answer reviews.",
+  "requestFramePermissions": []
+}
