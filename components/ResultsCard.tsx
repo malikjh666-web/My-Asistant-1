@@ -10,6 +10,7 @@ interface ResultsCardProps {
 
 const ResultsCard: React.FC<ResultsCardProps> = ({ question, userAnswer, questionNumber }) => {
   const isCorrect = userAnswer === question.correctAnswer;
+  const isUnattempted = userAnswer === null;
 
   const getOptionClasses = (option: string) => {
     const base = "flex items-center justify-between p-3 rounded-md transition-colors text-base";
@@ -38,13 +39,25 @@ const ResultsCard: React.FC<ResultsCardProps> = ({ question, userAnswer, questio
     return null;
   };
 
+  const getStatusIcon = () => {
+    if (isUnattempted) {
+      return <i className="fas fa-minus-circle text-slate-500" title="Unattempted"></i>;
+    }
+    return isCorrect 
+      ? <i className="fas fa-check-circle text-emerald-400" title="Correct"></i>
+      : <i className="fas fa-times-circle text-red-400" title="Incorrect"></i>;
+  }
+
   return (
     <div className="bg-slate-800 p-5 rounded-lg border border-slate-700 shadow-md animate-fade-in">
-      <h4 className="text-lg font-semibold mb-4 text-slate-200">
-        <span className={`mr-2 font-bold ${isCorrect ? 'text-emerald-400' : 'text-red-400'}`}>
-          {questionNumber}.
-        </span>
-        {question.question}
+      <h4 className="flex items-start text-lg font-semibold mb-4 text-slate-200">
+        <span className="mr-3 mt-1 font-bold text-slate-400">{questionNumber}.</span>
+        <div className="flex-1">
+          {question.question}
+          {isUnattempted && (
+             <span className="ml-2 text-xs font-medium bg-slate-700 text-slate-400 px-2 py-1 rounded-full">Unattempted</span>
+          )}
+        </div>
       </h4>
       <div className="space-y-3">
         {question.options.map((option, index) => (

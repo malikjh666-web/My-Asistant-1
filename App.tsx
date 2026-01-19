@@ -59,7 +59,6 @@ export default function App() {
       } else {
         throw new Error("Could not parse the questions. Please check the format and try again.");
       }
-    // FIX: Added curly braces to the catch block to fix a syntax error.
     } catch (e: any) {
       setError(e.message || "An unknown error occurred during parsing.");
       setExamState(ExamState.SETUP);
